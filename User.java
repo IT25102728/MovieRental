@@ -1,13 +1,16 @@
-// User.java (Base Class for Inheritance)
+// User.java
 public abstract class User {
-    private String userId;
-    private String username;
+    private String id;
+    private String name;
 
-    public User(String userId, String username) {
-        this.userId = userId;
-        this.username = username;
+    public User(String id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     // Getters and Setters (Encapsulation)
-    public String getUsername() { return username; }
+    public String getId() { return id; }
+    public String getName() { return name; }
+
+    public abstract String getRole(); // Abstract method
 }

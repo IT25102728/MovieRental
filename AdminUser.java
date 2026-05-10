@@ -1,20 +1,17 @@
-// AdminUser.java (Inheritance)
+// AdminUser.java
 public class AdminUser extends User {
-    private String role; // e.g., "SuperAdmin", "Editor"
-    private String password;
+    private String permissions;
 
-    public AdminUser(String userId, String username, String password, String role) {
-        super(userId, username);
-        this.password = password;
-        this.role = role;
+    public AdminUser(String id, String name, String permissions) {
+        super(id, name);
+        this.permissions = permissions;
     }
 
-    // Encapsulation
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    public String getPermissions() { return permissions; }
+    public void setPermissions(String permissions) { this.permissions = permissions; }
 
     @Override
-    public String toString() {
-        return getUsername() + "," + password + "," + role;
+    public String getRole() {
+        return "Administrator";
     }
 }

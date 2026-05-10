@@ -1,43 +1,65 @@
 import java.io.*;
 import java.util.*;
 
-public class AdminManager implements AdminOperations {
+public class AdminManager {
     private final String FILE_PATH = "admins.txt";
 
-    @Override
-    public void createAdmin(AdminUser admin) {
-        try (PrintWriter out = new PrintWriter(new FileWriter(FILE_PATH, true))) {
-            out.println(admin.toString());
-            System.out.println("Admin added successfully!");
+    // Create - Add Admin
+    public void saveAdmin(AdminUser admin) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
+            bw.write(admin.getId() + "," + admin.getName() + "," + admin.getPermissions());
+            bw.newLine();
         } catch (IOException e) {
-            System.out.println("Error saving admin: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    @Override
-    public List<AdminUser> readAdmins() {
-        List<AdminUser> admins = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new File(FILE_PATH))) {
-            while (scanner.hasNextLine()) {
-                String[] data = scanner.nextLine().split(",");
-                // Assuming format: username,password,role
-                admins.add(new AdminUser("ID", data[0], data[1], data[2]));
+    // Read - Get all Admins
+    public List<AdminUser> getAllAdmins() {
+        List<AdminUser> list = new ArrayList<>();
+        File file = new File(FILE_PATH);
+        if (!file.exists()) return list;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 3) {
+                    list.add(new AdminUser(parts[0], parts[1], parts[2]));
+                }
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("No admin records found.");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return admins;
+        return list;
     }
 
-    @Override
-    public void updatePermissions(String username, String newRole) {
-        // Logic: Read all, update the list, rewrite the file
-        System.out.println("Updating " + username + " to " + newRole);
+    // Delete Admin by ID
+    public void deleteAdmin(String id) {
+        List<AdminUser> admins = getAllAdmins();
+        admins.removeIf(a -> a.getId().equals(id));
+        rewriteFile(admins);
     }
 
-    @Override
-    public void deleteAdmin(String username) {
-        // Logic: Filter out the user and rewrite the file
-        System.out.println("Admin " + username + " removed.");
+    // Update Permissions
+    public void updateAdmin(String id, String newPerm) {
+        List<AdminUser> admins = getAllAdmins();
+        for (AdminUser a : admins) {
+            if (a.getId().equals(id)) {
+                a.setPermissions(newPerm);
+            }
+        }
+        rewriteFile(admins);
+    }
+
+    private void rewriteFile(List<AdminUser> admins) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            for (AdminUser a : admins) {
+                bw.write(a.getId() + "," + a.getName() + "," + a.getPermissions());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
