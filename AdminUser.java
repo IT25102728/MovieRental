@@ -1,20 +1,39 @@
-// AdminUser.java (Inheritance)
-public class AdminUser extends User {
-    private String role; // e.g., "SuperAdmin", "Editor"
-    private String password;
+package model;
 
-    public AdminUser(String userId, String username, String password, String role) {
-        super(userId, username);
-        this.password = password;
-        this.role = role;
+/**
+ * AdminUser extends User - demonstrates Inheritance and Polymorphism
+ */
+public class AdminUser extends User {
+    private String permission; // e.g., "full", "readonly"
+
+    public AdminUser() {
+        super();
+        setRole("admin");
     }
 
-    // Encapsulation
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    public AdminUser(String id, String name, String email, String password, String role) {
+        super(id, name, email, password, role);
+        this.permission = "full";
+    }
+
+    public AdminUser(String id, String name, String email, String password, String role, String permission) {
+        super(id, name, email, password, role);
+        this.permission = permission;
+    }
+
+    public String getPermission() { return permission; }
+    public void setPermission(String permission) { this.permission = permission; }
+
+    /**
+     * Polymorphic override
+     */
+    @Override
+    public String getUserType() {
+        return "Administrator";
+    }
 
     @Override
-    public String toString() {
-        return getUsername() + "," + password + "," + role;
+    public String toFileString() {
+        return super.toFileString();
     }
 }
