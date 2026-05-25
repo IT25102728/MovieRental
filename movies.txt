@@ -1,0 +1,10 @@
+M001,The Dark Knight,Action,3.99,true
+M002,The Hangover,Comedy,2.99,true
+M003,Get Out,Horror,2.49,true
+M004,Avengers Endgame,Action,4.99,true
+M005,Superbad,Comedy,2.49,true
+M006,It,Horror,3.49,true
+M007,Inception,Sci-Fi,3.99,true
+M008,The Notebook,Romance,2.99,true
+M009,Parasite,Thriller,3.49,true
+M010,Toy Story,Animation,2.49,true
