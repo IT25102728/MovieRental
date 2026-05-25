@@ -1,0 +1,3 @@
+ADM001,Super Admin,admin@movies.com,admin123,admin
+U001,John Doe,user@movies.com,user123,user
+U002,Jane Smith,jane@movies.com,jane123,user
