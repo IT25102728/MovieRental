@@ -1,0 +1,4 @@
+PAY001,U001,3.99,card,completed,2026-05-10
+PAY002,U001,4.99,card,completed,2026-05-15
+PAY003,U002,2.49,cash,completed,2026-05-12
+PAY004,U002,6.0,cash,completed,2026-05-17
